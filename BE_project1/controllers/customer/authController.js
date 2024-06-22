@@ -2,9 +2,13 @@ const Customer = require("../../models/Customer");
 const CryptoJs = require("crypto-js");
 const jwt = require("jsonwebtoken");
 const { isEmail, isPhoneNumber } = require("../../hepler/hepler");
+const Contact = require("../../models/Contact");
+const { default: mongoose } = require("mongoose");
 
 const register = async (req, res) => {
   try {
+    const session = await mongoose.startSession();
+    session.startTransaction();
     const existingEmail = await Customer.findOne({ email: req.body.email });
     if (existingEmail || !isEmail(req.body.email)) {
       return res
@@ -24,9 +28,17 @@ const register = async (req, res) => {
       password: hashedPassword,
       phone: req.body.phone,
     });
-    await customer.save();
+    const contact = new Contact({
+      room_chat: customer._id,
+    });
+    await contact.save({ session });
+    await customer.save({ session });
+    await session.commitTransaction();
+    session.endSession();
     return res.status(201).json(customer);
   } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
     console.log(error);
     return res.status(500).json(error);
   }

@@ -1,7 +1,8 @@
 const express = require("express");
-const { contact } = require("../../controllers/admin/chatController");
+const { contact, contacts } = require("../../controllers/admin/chatController");
 const router = express.Router();
 
-router.get("/:id", contact);
+router.get("/contact/:id", contact);
+router.get("/contact", contacts);
 
 module.exports = router;

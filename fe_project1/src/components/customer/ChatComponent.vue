@@ -74,9 +74,6 @@ export default {
     methods: {
         toggleMessage() {
             this.showChat = !this.showChat;
-            // if (this.showChat && !this.ws) {
-            //     this.connectWebSocket();
-            // }
             if (this.showChat) {
                 this.$nextTick(() => {
                     const container = this.$refs.messageContainer;
@@ -88,18 +85,16 @@ export default {
         },
         closeForm() {
             this.showChat = false;
-            // if (this.ws) {
-            //     this.ws.close();
-            // }
         },
         connectWebSocket() {
             this.ws = new WebSocket('ws://localhost:3000');
 
             this.ws.onopen = () => {
                 console.log('WebSocket connection established');
+                this.sendJoinMessage(jwtDecode(localStorage.getItem("tokenCus")).id);
             };
             this.ws.onmessage = (event) => {
-                // console.log('Message received from server:', event.data);
+
                 const message = JSON.parse(event.data);
                 this.messages.push(message);
                 this.$nextTick(this.scrollToBottom);
@@ -131,6 +126,15 @@ export default {
                 }
             } else {
                 console.error('WebSocket connection is not open.');
+            }
+        },
+        sendJoinMessage(roomChatId) {
+            if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+                const joinMessage = {
+                    type: "join",
+                    room_chat: roomChatId,
+                };
+                this.ws.send(JSON.stringify(joinMessage));
             }
         },
         async fetchSavedMessages() {

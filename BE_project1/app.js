@@ -7,14 +7,20 @@ const PORT = process.env.PORT || 3000;
 const path = require("path");
 const cors = require("cors");
 const Websocket = require("ws");
+const wsController = require("./controllers/websocket/wsController.js")
 
 // Run server
 const server = app.listen(PORT, (req, res) => {
   console.log(`server Started at http://localhost:${PORT}`);
 });
 
+// run ws
 const wss = new Websocket.Server({ server: server });
-const { required } = require("joi");
+
+wss.on("connection", (ws) => {
+  wsController.handleConnection(ws, wss);
+});
+
 
 app.use(express.json());
 
@@ -24,42 +30,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 db.connect;
 // WebSocket setup
 
-const Message = require("./models/Message.js");
-wss.on("connection", (ws) => {
-  console.log("A client connected");
-  ws.on("message", (message) => {
-    const parsedMessage = JSON.parse(message);
-
-    // Lưu tin nhắn vào cơ sở dữ liệu
-    if (parsedMessage.sender && parsedMessage.recipient) {
-      const newMessage = new Message({
-        room_chat: parsedMessage.room_chat,
-        content: parsedMessage.content,
-        sender: parsedMessage.sender,
-        recipient: parsedMessage.recipient,
-      });
-      newMessage
-        .save()
-        .then((savedMessage) => {
-          // console.log("Message saved:", savedMessage);
-          wss.clients.forEach(function each(client) {
-            if (client.readyState === Websocket.OPEN && client !== ws) {
-              client.send(JSON.stringify(savedMessage));
-            }
-          });
-        })
-        .catch((error) => {
-          console.error("Error saving message:", error);
-        });
-    }
-  });
-
-  ws.on("close", () => {
-    console.log("A client disconnected");
-  });
-
-  ws.on("error", console.error);
-});
 // view engine
 app.set("view engine", "ejs");
 // middleware
@@ -95,6 +65,7 @@ const addressCustomerRouter = require("./routers/customer/addressRouter.js");
 const orderCustomerRouter = require("./routers/customer/orderRouter.js");
 const customerRouter = require("./routers/customer/customerRouter.js");
 const chatRouter = require("./routers/customer/chatRouter.js");
+const Contact = require("./models/Contact.js");
 
 // admin
 app.use("/api/admin/auth", authAdminRouter);
@@ -104,7 +75,7 @@ app.use("/api/admin/category", categoryRouter);
 app.use("/api/admin/product", productRouter);
 app.use("/api/admin/customers", fetchCustomerRouter);
 app.use("/api/admin/chat", roomChatRouter);
-app.use("/api/admin/order",orderRouter);
+app.use("/api/admin/order", orderRouter);
 // customer
 app.use("/api/auth", authCustomerRouter);
 app.use("/api/cart", cartCustomerRouter);
