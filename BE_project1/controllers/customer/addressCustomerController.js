@@ -1,5 +1,6 @@
-const { isPhoneNumber } = require("../../hepler/hepler");
-const AddressCustomer = require("../../models/AddressCustomer");
+import { isPhoneNumber } from "../../hepler/hepler";
+import AddressCustomer from "../../models/AddressCustomer";
+
 const index = async (req, res) => {
   try {
     const addCus = await AddressCustomer.find();
@@ -95,4 +96,4 @@ const destroy = async (req, res) => {
     return res.status(500).json(error.message);
   }
 };
-module.exports = { index, store, show, update, destroy };
+export { index, store, show, update, destroy };

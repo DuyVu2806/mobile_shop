@@ -11,7 +11,11 @@
                                         label="Search templates" variant="solo" hide-details single-line></v-text-field>
                                 </div>
                             </div>
-                            <div v-for="contact in contacts" :key="contact.id"
+                            <div v-if="loading">
+                                <v-progress-linear color="cyan" indeterminate></v-progress-linear>
+                                <span class="d-flex justify-center">loading...</span>
+                            </div>
+                            <div v-for="contact in contacts" :key="contact.id" v-else
                                 :class="['discussion', { 'message-active': selectedContact && selectedContact.id === contact.id }]"
                                 @click="selectContact(contact)">
                                 <div class="photo" style="background-image:">
@@ -35,7 +39,7 @@
                                 </v-card-title>
                                 <v-divider></v-divider>
                                 <v-card-text>
-                                    <div class="messages-chat" ref="chatWindow">
+                                    <div class="messages-chat" ref="chatWindow" >
                                         <div v-for="(message, index) in selectedContact.messages" :key="index"
                                             class="message">
                                             <div class="response" v-if="message.sender === senderAdmin">
@@ -55,9 +59,15 @@
                                 <v-card-actions>
                                     <input type="text" class="write-message" placeholder="Type your message here"
                                         v-model="newMessage" @keyup.enter="sendMessage" />
-                                    <v-btn size="large" height="50" width="120" class="ml-2" variant="elevated" color="primary"
-                                        prepend-icon="mdi-send" @click="sendMessage">Send</v-btn>
+                                    <v-btn size="large" height="50" width="120" class="ml-2" variant="elevated"
+                                        color="primary" prepend-icon="mdi-send" @click="sendMessage">Send</v-btn>
                                 </v-card-actions>
+                            </v-card>
+                        </v-col>
+                        <v-col cols="8">
+                            <v-card height="600">
+
+                                <span class="d-flex justify-center mt-5">Please select contact</span>
                             </v-card>
                         </v-col>
                     </v-row>
@@ -195,7 +205,7 @@ export default {
             return new Date(dateString).toLocaleDateString('vi-VN', options);
         },
     },
-    
+
 
 }
 </script>
@@ -325,14 +335,6 @@ export default {
 }
 
 
-.header-chat {
-    background-color: #FFF;
-    height: 90px;
-    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.100);
-    display: flex;
-    align-items: center;
-}
-
 .chat .header-chat .icon {
     margin-left: 30px;
     color: #515151;
@@ -457,6 +459,7 @@ export default {
     margin-left: 20px;
     padding: 10px;
 }
+
 .clickable {
     cursor: pointer;
 }

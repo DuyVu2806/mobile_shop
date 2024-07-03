@@ -1,14 +1,14 @@
-const express = require("express");
-const router = express.Router();
-
-const {
+import express from "express";
+import {
   register,
   login,
   verifyToken,
-} = require("../../controllers/admin/authController");
+} from "../../controllers/admin/authController.js";
+
+const router = express.Router();
 
 router.post("/login", login);
 router.post("/register", register);
 router.get("/verify-token", verifyToken);
 
-module.exports = router;
+export default router;

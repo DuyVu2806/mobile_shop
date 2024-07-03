@@ -1,12 +1,7 @@
-const express = require("express");
-const {
-  index,
-  store,
-  update,
-  destroy,
-  show,
-} = require("../../controllers/admin/categoryController");
-const { uploadOptions } = require("../../hepler/uploadImage");
+import express from "express";
+import { index, store, update, destroy, show } from "../../controllers/admin/categoryController.js";
+import { uploadOptions } from "../../hepler/uploadImage.js";
+
 const router = express.Router();
 
 router.get("/", index);
@@ -15,4 +10,5 @@ router.post("/add", uploadOptions.single("image"), store);
 router.put("/update/:id", uploadOptions.single("image"), update);
 router.delete("/delete/:id", destroy);
 
-module.exports = router;
+export default router;
+

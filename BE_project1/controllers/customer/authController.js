@@ -1,9 +1,9 @@
-const Customer = require("../../models/Customer");
-const CryptoJs = require("crypto-js");
-const jwt = require("jsonwebtoken");
-const { isEmail, isPhoneNumber } = require("../../hepler/hepler");
-const Contact = require("../../models/Contact");
-const { default: mongoose } = require("mongoose");
+import Customer from "../../models/Customer";
+import CryptoJs from "crypto-js";
+import jwt from "jsonwebtoken";
+import { isEmail, isPhoneNumber } from "../../hepler/hepler";
+import Contact from "../../models/Contact";
+import mongoose from "mongoose";
 
 const register = async (req, res) => {
   try {
@@ -31,11 +31,11 @@ const register = async (req, res) => {
     const contact = new Contact({
       room_chat: customer._id,
     });
-    await contact.save({ session });
-    await customer.save({ session });
+    // await contact.save({ session });
+    // await customer.save({ session });
     await session.commitTransaction();
     session.endSession();
-    return res.status(201).json(customer);
+    return res.status(201).json("Register successfully, Please Login");
   } catch (error) {
     await session.abortTransaction();
     session.endSession();
@@ -91,4 +91,4 @@ const verifyToken = async (req, res) => {
   }
 };
 
-module.exports = { register, login, verifyToken };
+export { register, login, verifyToken };

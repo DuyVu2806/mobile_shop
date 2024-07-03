@@ -1,7 +1,7 @@
-const Category = require("../../models/Categories");
-const { createSlug } = require("../../hepler/hepler");
-const fs = require("fs");
-const { updateCategoryRequest } = require("../../request/categoryRequest");
+import Category from "../../models/Categories";
+import { createSlug } from "../../hepler/hepler";
+import fs from "fs";
+import { updateCategoryRequest } from "../../request/categoryRequest";
 
 const index = async (req, res) => {
   try {
@@ -111,4 +111,4 @@ const destroy = async (req, res) => {
     return res.status(500).json(error);
   }
 };
-module.exports = { index, store, show, update, destroy };
+export { index, store, show, update, destroy };

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const cartSchema = mongoose.Schema({
   customer_id: {
@@ -20,4 +20,4 @@ const cartSchema = mongoose.Schema({
   checkItem: { type: Boolean, default: false },
 });
 
-module.exports = mongoose.model("Cart", cartSchema);
+export default mongoose.model("Cart", cartSchema);

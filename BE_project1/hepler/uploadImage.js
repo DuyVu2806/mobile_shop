@@ -1,4 +1,4 @@
-const multer = require("multer");
+import multer from "multer";
 
 const FILE_TYPE_MAP = {
   "image/png": "png",
@@ -25,4 +25,4 @@ const storage = multer.diskStorage({
 
 const uploadOptions = multer({ storage: storage });
 
-module.exports = {uploadOptions};
+export { uploadOptions };

@@ -1,5 +1,5 @@
-const Order = require("../../models/Order");
-const OrderItem = require("../../models/OrderItem");
+import Order from "../../models/Order";
+import OrderItem from "../../models/OrderItem";
 const index = async (req, res) => {
   try {
     const totalOrders = await Order.countDocuments();
@@ -20,15 +20,13 @@ const index = async (req, res) => {
       status_message: "Delivery",
     });
     const data = await Order.find();
-    return res
-      .status(200)
-      .json({
-        data,
-        totalOrders,
-        ordersThisWeek,
-        cancelledOrders,
-        fulfilledOrders,
-      });
+    return res.status(200).json({
+      data,
+      totalOrders,
+      ordersThisWeek,
+      cancelledOrders,
+      fulfilledOrders,
+    });
   } catch (error) {
     return res.status(500).json(error);
   }
@@ -48,8 +46,6 @@ const show = async (req, res) => {
     return res.status(500).json(error);
   }
 };
-const update = async (req, res) => {
-  
-};
+const update = async (req, res) => {};
 const destroy = async (req, res) => {};
-module.exports = { index, store, show, update, destroy };
+export { index, store, show, update, destroy };

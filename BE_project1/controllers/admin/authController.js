@@ -1,7 +1,7 @@
-const Admin = require("../../models/Admin");
-const CryptoJs = require("crypto-js");
-const jwt = require("jsonwebtoken");
-const { isPhoneNumber, isEmail } = require("../../hepler/hepler");
+import Admin from "../../models/Admin";
+import CryptoJs from "crypto-js";
+import jwt from "jsonwebtoken";
+import { isPhoneNumber, isEmail } from "../../hepler/hepler";
 
 const register = async (req, res) => {
   const existingEmail = await Admin.findOne({ email: req.body.email });
@@ -50,7 +50,12 @@ const login = async (req, res) => {
       return res.status(401).json("Mật khẩu không chính xác");
     } else {
       const token = jwt.sign(
-        { id: admin._id, email: admin.email, role: admin.role, name: admin.fullname },
+        {
+          id: admin._id,
+          email: admin.email,
+          role: admin.role,
+          name: admin.fullname,
+        },
         process.env.JWT_SEC,
         { expiresIn: "7d" }
       );
@@ -63,10 +68,9 @@ const login = async (req, res) => {
   }
 };
 
-
 const verifyToken = async (req, res) => {
   const token = req.headers.authorization.split(" ")[1]; // Lấy token từ header
-  if (!token) { 
+  if (!token) {
     return res.status(401).send("Token không được cung cấp");
   }
 
@@ -78,4 +82,4 @@ const verifyToken = async (req, res) => {
   });
 };
 
-module.exports = { login, register, verifyToken };
+export{ login, register, verifyToken };

@@ -1,9 +1,9 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
-const { getAll } = require("../../controllers/admin/adminController");
-const {  verifyToken } = require("../../middleware/jwtAdmin");
+import { getAll } from "../../controllers/admin/adminController";
+import { verifyToken } from "../../middleware/jwtAdmin";
 
 router.get("/", verifyToken, getAll);
 
-module.exports = router;
+export default router;

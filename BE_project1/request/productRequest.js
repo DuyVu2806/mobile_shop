@@ -1,4 +1,4 @@
-const Joi = require("joi");
+import Joi from "joi";
 
 const productRequest = Joi.object({
   name: Joi.string().required(),
@@ -18,11 +18,11 @@ const productRequest = Joi.object({
         quantity: Joi.number().integer().min(1).required(),
       })
     )
-    .optional()
+    .optional(),
 });
 
 // Hàm xác thực request
 const validateProduct = (data) => {
   return productRequest.validate(data, { abortEarly: false });
 };
-module.exports = { validateProduct };
+export { validateProduct };

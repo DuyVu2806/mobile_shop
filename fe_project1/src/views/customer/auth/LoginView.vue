@@ -14,7 +14,7 @@
                                 <v-text-field v-model="password" label="Password" :rules="passwordRules" type="password"
                                     required></v-text-field>
                             </v-form>
-                            <p class="pt-4">Don't have an account? <a href="">Sign up now!</a> </p>
+                            <p class="pt-4">Don't have an account? <a href="/register">Sign up now!</a> </p>
                         </v-card-text>
 
                         <v-card-actions>
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import apiClient from '@/api';
 import { jwtDecode } from 'jwt-decode';
 
 export default {
@@ -60,7 +60,7 @@ export default {
             const isValid = await this.$refs.form.validate();
             if (isValid.valid) {
                 try {
-                    const response = await axios.post('http://localhost:3000/api/auth/login', {
+                    const response = await apiClient.post('/auth/login', {
                         email: this.email,
                         password: this.password
                     });

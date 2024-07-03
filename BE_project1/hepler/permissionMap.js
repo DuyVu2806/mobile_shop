@@ -3,4 +3,4 @@ const permissionMap = {
   "/admin/roles": "manage_roles",
 };
 
-module.exports = { permissionMap };
+export { permissionMap };

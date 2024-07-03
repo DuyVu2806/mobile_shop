@@ -1,4 +1,4 @@
-const Message = require("../../models/Message");
+import Message from "../../models/Message";
 
 const index = async (req, res) => {
   try {
@@ -8,4 +8,4 @@ const index = async (req, res) => {
     console.log(error);
   }
 };
-module.exports = { index };
+export { index };

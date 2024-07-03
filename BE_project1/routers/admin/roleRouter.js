@@ -1,9 +1,10 @@
-const express = require("express");
-const { findAll, addRole } = require("../../controllers/admin/roleController");
-const { verifyRole } = require("../../middleware/jwtAdmin");
+import express from "express";
+import { findAll, addRole } from "../../controllers/admin/roleController.js";
+import { verifyRole } from "../../middleware/jwtAdmin.js";
+
 const router = express.Router();
 
-router.get("/", verifyRole,findAll);
+router.get("/", verifyRole, findAll);
 router.post("/add-role", addRole);
 
-module.exports = router;
+export default router;

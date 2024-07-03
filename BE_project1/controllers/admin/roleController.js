@@ -1,6 +1,6 @@
-const Role = require("../../models/RoleAdmin");
-const mongoose = require("mongoose");
-const permissions = require("../../models/PermissionAdmin");
+import Role from "../../models/RoleAdmin";
+import mongoose from "mongoose";
+import permissions from "../../models/PermissionAdmin";
 
 const findAll = async (req, res) => {
   try {
@@ -44,4 +44,4 @@ const addRole = async (req, res) => {
   }
 };
 
-module.exports = { findAll, addRole };
+export { findAll, addRole };

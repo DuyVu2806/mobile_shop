@@ -7,12 +7,12 @@
             <v-container fluid v-else>
                 <v-row>
                     <v-col cols="6">
-                        <v-card>
+                        <v-card height="250">
                             <v-card-title>
                                 Status Message
                             </v-card-title>
                             <v-divider></v-divider>
-                            <v-card-text>
+                            <v-card-text >
                                 <v-timeline direction="horizontal" line-inset="12">
                                     <v-timeline-item :dot-color="getStatusColor(1)">
                                         <template v-slot:icon>
@@ -47,23 +47,24 @@
                         </v-card>
                     </v-col>
                     <v-col cols="6">
-                        <v-card>
+                        <v-card height="250">
                             <v-card-title>
                                 Information Order
                             </v-card-title>
+                            <v-divider></v-divider>
                             <v-card-text>
                                 <div class="d-flex align-center mb-2">
                                     <h3>Fullname:{{ info_order.name }} | Phone:<span class="text-grey"> {{
                                         info_order.phone }}</span></h3>
                                 </div>
-                                <p><span class="text-body-1 font-weight-bold">Address:</span> {{ info_order.address }},
+                                <p class="mb-2"><span class="text-body-1 font-weight-bold">Address:</span> {{ info_order.address }},
                                     {{ info_order.ward }}, {{
                                         info_order.district }}, {{ info_order.province }}</p>
-                                <p>
+                                <p class="mb-2">
                                     <span class="text-body-1 font-weight-bold">Order time:</span> {{
                                         info_order.orderTime }}
                                 </p>
-                                <p>
+                                <p class="mb-2">
                                     <span class="text-body-1 font-weight-bold"> Status Message: </span>
                                     <v-btn variant="outlined" size="small" prepend-icon="mdi-circle-medium" color="blue"
                                         width="130" height="20">{{ info_order.status_message }}</v-btn>
@@ -87,7 +88,7 @@
                                 </v-dialog>
                                 <p>
                                     <span class="text-body-1 font-weight-bold">Total price: </span>
-                                    {{ info_order.total_price }}
+                                    <span class="text-red">{{ info_order.total_price }}</span>
                                 </p>
                             </v-card-text>
                         </v-card>

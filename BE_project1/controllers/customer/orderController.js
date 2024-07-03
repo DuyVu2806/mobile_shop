@@ -1,7 +1,7 @@
-const { default: mongoose } = require("mongoose");
-const { randomCode } = require("../../hepler/hepler");
-const Order = require("../../models/Order");
-const OrderItem = require("../../models/OrderItem");
+import mongoose from "mongoose";
+import { randomCode } from "../../hepler/hepler";
+import Order from "../../models/Order";
+import OrderItem from "../../models/OrderItem";
 
 const index = async (req, res) => {
   try {
@@ -73,7 +73,6 @@ const store = async (req, res) => {
     return res.status(500).json(error.message);
   }
 };
-
 const show = async (req, res) => {
   try {
     const orderCode = req.params.code;
@@ -86,4 +85,5 @@ const show = async (req, res) => {
   }
 };
 const destroy = async (req, res) => {};
-module.exports = { index, store, show, destroy };
+
+export { index, store, show, destroy };

@@ -39,6 +39,7 @@ export default createStore({
     },
     SET_CURRENT_CUS(state, customer) {
       state.currentCus = customer;
+      
     },
     setCartItemCount(state, count) {
       state.cartCount = count;
@@ -89,6 +90,7 @@ export default createStore({
             Authorization: `Bearer ${token}`,
           },
         });
+        
         commit("setCartItemCount", response.data);
       } else {
         commit("setCartItemCount", 0);
@@ -211,7 +213,7 @@ export default createStore({
           },
         });
         commit("CLEAR_CART");
-        commit("resetCartItemCount")
+        commit("resetCartItemCount");
       } catch (error) {
         console.log(error);
       }

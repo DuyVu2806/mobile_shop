@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const customerAddressSchema = mongoose.Schema({
   customer_id: {
@@ -18,4 +18,4 @@ const customerAddressSchema = mongoose.Schema({
   selected: { type: Boolean, default: false },
 });
 
-module.exports = mongoose.model("Customer_Address", customerAddressSchema);
+export default mongoose.model("Customer_Address", customerAddressSchema);

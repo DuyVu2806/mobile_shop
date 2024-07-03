@@ -1,8 +1,9 @@
-const express = require("express");
-const { contact, contacts } = require("../../controllers/admin/chatController");
+import express from "express";
+import { contact, contacts } from "../../controllers/admin/chatController.js";
+
 const router = express.Router();
 
 router.get("/contact/:id", contact);
 router.get("/contact", contacts);
 
-module.exports = router;
+export default router;

@@ -1,4 +1,4 @@
-const Customer = require("../../models/Customer");
+import Customer from "../../models/Customer";
 
 const index = async (req, res) => {
   try {
@@ -12,4 +12,4 @@ const store = async (req, res) => {};
 const show = async (req, res) => {};
 const update = async (req, res) => {};
 const destroy = async (req, res) => {};
-module.exports = { index, store, show, update, destroy };
+export { index, store, show, update, destroy };

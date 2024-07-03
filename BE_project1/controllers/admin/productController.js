@@ -1,9 +1,9 @@
-const Product = require("../../models/Products");
-const Variant = require("../../models/Variant");
-const { createSlug } = require("../../hepler/hepler");
-const fs = require("fs");
-const { validateProduct } = require("../../request/productRequest");
-const mongoose  = require("mongoose");
+import Product from "../../models/Products";
+import Variant from "../../models/Variant";
+import { createSlug } from "../../hepler/hepler";
+import fs from "fs";
+import { validateProduct } from "../../request/productRequest";
+import mongoose from "mongoose";
 
 const index = async (req, res) => {
   try {
@@ -201,4 +201,4 @@ const destroy = async (req, res) => {
     return res.status(500).json(error);
   }
 };
-module.exports = { index, store, show, update, destroy };
+export { index, store, show, update, destroy };

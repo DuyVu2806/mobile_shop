@@ -1,6 +1,6 @@
-const jwt = require("jsonwebtoken");
-const Admin = require("../models/Admin");
-const { permissionMap } = require("../hepler/permissionMap");
+import jwt from "jsonwebtoken";
+import Admin from "../models/Admin";
+import { permissionMap } from "../hepler/permissionMap";
 
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -55,9 +55,4 @@ const verifyRole = (req, res, next) => {
   });
 };
 
-module.exports = {
-  verifyToken,
-  verifyTokenAndAuthorization,
-  verifyRole,
-  // verifyTokenAndAdmin,
-};
+export { verifyToken, verifyTokenAndAuthorization, verifyRole };

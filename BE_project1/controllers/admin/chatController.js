@@ -1,5 +1,5 @@
-const Contact = require("../../models/Contact");
-const Message = require("../../models/Message");
+import Contact from "../../models/Contact";
+import Message from "../../models/Message";
 
 const contact = async (req, res) => {
   try {
@@ -22,4 +22,4 @@ const contacts = async (req, res) => {
   }
 };
 
-module.exports = { contact, contacts };
+export{ contact, contacts };

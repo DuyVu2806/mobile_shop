@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from"mongoose";
 
 const orderItemSchema = mongoose.Schema({
   product_id: {
@@ -15,4 +15,4 @@ const orderItemSchema = mongoose.Schema({
   rstatus: { type: Boolean, default: false },
 });
 
-module.exports = mongoose.model("OrderItem", orderItemSchema);
+export default mongoose.model("OrderItem", orderItemSchema);

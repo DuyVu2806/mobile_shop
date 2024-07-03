@@ -38,6 +38,5 @@ const phoneNumberRegex = /^(84|0[3|5|7|8|9])+([0-9]{8,9})\b/;
 const isPhoneNumber = (phoneNumber) => {
   console.log(phoneNumberRegex.test(phoneNumber));
   return phoneNumberRegex.test(phoneNumber);
-
 };
-module.exports = { createSlug, isEmail, isPhoneNumber, randomCode };
+export { createSlug, isEmail, isPhoneNumber, randomCode };

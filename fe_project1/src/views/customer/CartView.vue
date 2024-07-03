@@ -78,7 +78,7 @@
                         </v-card-title>
                         <v-divider></v-divider>
                         <v-card-text>
-                             <p class="font-weight-light text-h5 text-red-darken-1" >{{ formatCurrency(totalPrice) }}</p>
+                             <p class="font-weight-light text-h4 text-red-darken-1 d-flex justify-start" >{{ formatCurrency(totalPrice) }}</p>
                         </v-card-text>
                         <v-card-actions>
                             <v-btn block color="yellow-darken-2" variant="tonal" to="/checkout" text="Checkout">

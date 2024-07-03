@@ -73,7 +73,7 @@
                                 </v-menu>
                             </div>
                             <v-divider></v-divider>
-                            <v-row class="justify-space-around">
+                            <v-row >
                                 <v-col cols="12" lg="3" md="4" sm="6" v-for="product in products" :key="product._id">
                                     <v-card class="mx-auto" elevation="2" max-width="344">
                                         <div class="image-container">
@@ -130,6 +130,7 @@ export default {
             ],
             value: [],
             loading: true,
+            searchQuery: this.$route.query.search || '',
         }
     },
     created() {
@@ -142,7 +143,7 @@ export default {
         async fetchProducts() {
             try {
                 this.loading = true;
-                const response = await apiClient.get('/products');
+                const response = await apiClient.get(`/products?search=${this.searchQuery}`);
                 this.products = response.data;
                 this.loading = false;
             } catch (error) {

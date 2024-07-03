@@ -1,6 +1,6 @@
-const Message = require("../../models/Message.js");
-const Contact = require("../../models/Contact.js");
-const Websocket = require("ws");
+import Message from "../../models/Message.js";
+import Contact from "../../models/Contact.js";
+import Websocket from "ws";
 
 const clients = new Map();
 
@@ -54,6 +54,6 @@ const handleConnection = (ws, wss) => {
   ws.on("error", console.error);
 };
 
-module.exports = {
+export default {
   handleConnection,
 };

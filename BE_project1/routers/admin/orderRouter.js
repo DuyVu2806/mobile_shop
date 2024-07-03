@@ -1,11 +1,11 @@
-const express = require("express");
-const { verifyToken } = require("../../middleware/jwtAdmin");
-const { index, show, update } = require("../../controllers/admin/orderController");
+import express from "express";
+import { verifyToken } from "../../middleware/jwtAdmin.js";
+import { index, show, update } from "../../controllers/admin/orderController.js";
+
 const router = express.Router();
 
 router.get("/", verifyToken, index);
 router.get("/:order_code", verifyToken, show);
-router.post("/update_status/:order_code" ,verifyToken, update)
+router.post("/update_status/:order_code", verifyToken, update);
 
-module.exports = router; 
-  
+export default router;

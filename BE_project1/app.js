@@ -1,21 +1,24 @@
-require("dotenv").config();
-const express = require("express");
-const db = require("./database/db.js");
-const bodyParser = require("body-parser");
+import dotenv from "dotenv";
+import express from "express";
+import db from "./database/db.js";
+import bodyParser from "body-parser";
+import path from "path";
+import cors from "cors";
+import WebSocket from "ws";
+import wsController from "./controllers/websocket/wsController.js";
+
+dotenv.config();
+
 const app = express();
 const PORT = process.env.PORT || 3000;
-const path = require("path");
-const cors = require("cors");
-const Websocket = require("ws");
-const wsController = require("./controllers/websocket/wsController.js")
 
 // Run server
-const server = app.listen(PORT, (req, res) => {
+const server = app.listen(PORT, () => {
   console.log(`server Started at http://localhost:${PORT}`);
 });
 
 // run ws
-const wss = new Websocket.Server({ server: server });
+const wss = new WebSocket.Server({ server: server });
 
 wss.on("connection", (ws) => {
   wsController.handleConnection(ws, wss);
@@ -48,24 +51,21 @@ app.use(
   express.static(path.join(__dirname, "public", "uploads"))
 );
 
-// Connect Router
-// admin
-const authAdminRouter = require("./routers/admin/authRouter.js");
-const adminRouter = require("./routers/admin/adminRouter.js");
-const roleRouter = require("./routers/admin/roleRouter.js");
-const categoryRouter = require("./routers/admin/categoryRouter.js");
-const productRouter = require("./routers/admin/productRouter.js");
-const fetchCustomerRouter = require("./routers/admin/customerRouter.js");
-const roomChatRouter = require("./routers/admin/chatRouter.js");
-const orderRouter = require("./routers/admin/orderRouter.js");
-// customer
-const authCustomerRouter = require("./routers/customer/authRouter.js");
-const cartCustomerRouter = require("./routers/customer/cartRouter.js");
-const addressCustomerRouter = require("./routers/customer/addressRouter.js");
-const orderCustomerRouter = require("./routers/customer/orderRouter.js");
-const customerRouter = require("./routers/customer/customerRouter.js");
-const chatRouter = require("./routers/customer/chatRouter.js");
-const Contact = require("./models/Contact.js");
+// Import routers
+import authAdminRouter from "./routers/admin/authRouter.js";
+import adminRouter from "./routers/admin/adminRouter.js";
+import roleRouter from "./routers/admin/roleRouter.js";
+import categoryRouter from "./routers/admin/categoryRouter.js";
+import productRouter from "./routers/admin/productRouter.js";
+import fetchCustomerRouter from "./routers/admin/customerRouter.js";
+import roomChatRouter from "./routers/admin/chatRouter.js";
+import orderRouter from "./routers/admin/orderRouter.js";
+import authCustomerRouter from "./routers/customer/authRouter.js";
+import cartCustomerRouter from "./routers/customer/cartRouter.js";
+import addressCustomerRouter from "./routers/customer/addressRouter.js";
+import orderCustomerRouter from "./routers/customer/orderRouter.js";
+import customerRouter from "./routers/customer/customerRouter.js";
+import chatRouter from "./routers/customer/chatRouter.js";
 
 // admin
 app.use("/api/admin/auth", authAdminRouter);

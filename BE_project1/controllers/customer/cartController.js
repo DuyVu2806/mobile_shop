@@ -1,6 +1,6 @@
-const Cart = require("../../models/Carts");
-// const Customer = require("../../models/Customer");
-const Product = require("../../models/Products");
+import Cart from "../../models/Carts";
+import Product from "../../models/Products";
+
 const index = async (req, res) => {
   try {
     const cartData = await Cart.find({ customer_id: req.cus.id })
@@ -162,4 +162,4 @@ const destroyAll = async (req, res) => {
     return res.status(500).json(error);
   }
 };
-module.exports = { index, numCart, addToCart, update, destroy, destroyAll };
+export { index, numCart, addToCart, update, destroy, destroyAll };

@@ -57,21 +57,33 @@ const routes = [
         path: "/admin/chat",
         name: "chat view",
         component: () => import("../views/admin/chat/ChatView.vue"),
+        meta: {
+          title: "Chat",
+        },
       },
       {
         path: "/admin/order",
         name: "order admin view",
         component: () => import("../views/admin/order/OrderView.vue"),
+        meta: {
+          title: "Order",
+        },
       },
       {
         path: "/admin/order/:order_code",
         name: "order detail admin view",
         component: () => import("../views/admin/order/OrderDetailView.vue"),
+        meta: {
+          title: "Order Detail",
+        },
       },
       {
         path: "/admin/rating",
         name: "rating view",
         component: () => import("../views/admin/rating/RatingView.vue"),
+        meta: {
+          title: "Rating",
+        },
       },
     ],
   },
@@ -142,11 +154,19 @@ const routes = [
         path: "/order",
         name: "order view",
         component: () => import("../views/customer/OrdersView.vue"),
+        meta: {
+          navbar: "customer",
+          requiresAuth: true,
+        },
       },
       {
         path: "/profile",
         name: "profile view",
         component: () => import("../views/customer/ProfileView.vue"),
+        meta: {
+          navbar: "customer",
+          requiresAuth: true,
+        },
       },
     ],
   },
@@ -165,6 +185,11 @@ const routes = [
     meta: {
       title: "Sign In",
     },
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: () => import("../views/customer/auth/RegisterVIew.vue"),
   },
 ];
 
@@ -192,6 +217,7 @@ router.beforeEach(async (to, from, next) => {
           next();
         } catch (error) {
           localStorage.removeItem("tokenAdmin");
+          localStorage.removeItem("isLoggedIn");
           next("/admin/login");
         }
       }
@@ -209,6 +235,7 @@ router.beforeEach(async (to, from, next) => {
           next();
         } catch (error) {
           localStorage.removeItem("tokenCus");
+          localStorage.removeItem("isLoggedCusIn");
           next("/login");
         }
       }
